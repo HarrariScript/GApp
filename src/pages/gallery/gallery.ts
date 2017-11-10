@@ -18,10 +18,11 @@ import {GalleryService} from "../../services/gallery.service";
 export class GalleryPage {
   private apiKey = "7005797-664590099d4013b34d7fc6d1d"
   private keyWord: string = ""
-  private images:any;
-  private page:number=1 ;
-  private size:number=10;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient , private galleryService:GalleryService) {
+  private images: any = {hits: []};
+  private page: number = 1;
+  private size: number = 10;
+  private totalePages:number;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient, private galleryService: GalleryService) {
   }
 
   ionViewDidLoad() {
@@ -29,9 +30,26 @@ export class GalleryPage {
   }
 
   search() {
-     this.galleryService.search(this.keyWord,this.size,this.page)
-       .subscribe(data=> this.images = data , err=> console.log(err))
+    this.galleryService.search(this.keyWord, this.size, this.page)
+      .subscribe(data =>
+        {
+          this.totalePages = data.totalHits / this.size ;
+          if(this.totalePages % this.size !=0 ) ++this.totalePages;
+          data.hits.forEach(h=> {
+             this.images.hits.push(h);
+          })
+        },
+        err =>
+          console.log(err)
+      )
+  }
 
+  doInfinite(event) {
+    if(this.page < this.totalePages){
+      ++this.page;
+      this.search();
+      event.complete();
+    }
 
   }
 }
