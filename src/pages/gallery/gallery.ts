@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {HttpClient} from "@angular/common/http";
+import {GalleryService} from "../../services/gallery.service";
 
 /**
  * Generated class for the GalleryPage page.
@@ -18,8 +19,9 @@ export class GalleryPage {
   private apiKey = "7005797-664590099d4013b34d7fc6d1d"
   private keyWord: string = ""
   private images:any;
-  public vm = this ;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient) {
+  private page:number=1 ;
+  private size:number=10;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient , private galleryService:GalleryService) {
   }
 
   ionViewDidLoad() {
@@ -27,15 +29,17 @@ export class GalleryPage {
   }
 
   search() {
-    console.log("sent");
-    this.http.get("https://pixabay.com/api/?key=" + this.apiKey + "&q=" + this.keyWord + "&per_page=3&page=1")
-      .subscribe(data => {
-             this.images = data ;
-             console.log(this.images)
-        },
-        err => {
-          console.log(err)
-        })
+     this.galleryService.search(this.keyWord,this.size,this.page)
+       .subscribe(data=> this.images = data , err=> console.log(err))
+    // console.log("sent");
+    // this.http.get("https://pixabay.com/api/?key=" + this.apiKey + "&q=" + this.keyWord + "&per_page=3&page=1")
+    //   .subscribe(data => {
+    //          this.images = data ;
+    //          console.log(this.images)
+    //     },
+    //     err => {
+    //       console.log(err)
+    //     })
 
   }
 }
