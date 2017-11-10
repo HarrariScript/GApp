@@ -9,6 +9,8 @@ import { HomePage } from '../pages/home/home';
 import {PlacesPage} from "../pages/places/places";
 import {MeteoPage} from "../pages/meteo/meteo";
 import {GalleryPage} from "../pages/gallery/gallery";
+import {HttpClientModule} from "@angular/common/http";
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,7 @@ import {GalleryPage} from "../pages/gallery/gallery";
     GalleryPage
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
