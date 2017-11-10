@@ -11,6 +11,7 @@ import {MeteoPage} from "../pages/meteo/meteo";
 import {GalleryPage} from "../pages/gallery/gallery";
 import {HttpClientModule} from "@angular/common/http";
 import {GalleryService} from "../services/gallery.service";
+import {HideHeaderDirective} from "../directives/hide-header/hide-header";
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {GalleryService} from "../services/gallery.service";
     HomePage,
     PlacesPage,
     MeteoPage,
-    GalleryPage
+    GalleryPage,
+    HideHeaderDirective
   ],
   imports: [
     BrowserModule,HttpClientModule,

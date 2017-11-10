@@ -31,15 +31,7 @@ export class GalleryPage {
   search() {
      this.galleryService.search(this.keyWord,this.size,this.page)
        .subscribe(data=> this.images = data , err=> console.log(err))
-    // console.log("sent");
-    // this.http.get("https://pixabay.com/api/?key=" + this.apiKey + "&q=" + this.keyWord + "&per_page=3&page=1")
-    //   .subscribe(data => {
-    //          this.images = data ;
-    //          console.log(this.images)
-    //     },
-    //     err => {
-    //       console.log(err)
-    //     })
+
 
   }
 }

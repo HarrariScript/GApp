@@ -4,7 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header #head>
 
   <ion-navbar color="danger">
     <button ion-button menuToggle>
@@ -16,19 +16,48 @@
 </ion-header>
 
 
-<ion-content padding>
-     <div padding>
-       <ion-item>
-          <ion-label>Key Word </ion-label>
-         <ion-input type="text" [(ngModel)]="keyWord"> </ion-input>
-       </ion-item>
-       <button ion-button="" block (click)="search()"> chercher </button>
-     </div>
-     <ion-card *ngFor="let i of images?.hits">
-         <ion-card-header class="myCardHeader"></ion-card-header>
-         <ion-card-content>
-                 <p>{{i.tags}}</p>
-           <img src="{{i.previewURL}}">
-         </ion-card-content>
-     </ion-card>
+<ion-content padding hide-header [header]="head">
+  <div padding>
+    <ion-item>
+      <ion-label>Key Word</ion-label>
+      <ion-input type="text" [(ngModel)]="keyWord"></ion-input>
+    </ion-item>
+    <button ion-button="" block (click)="search()"> chercher</button>
+  </div>
+  <ion-card *ngFor="let i of images?.hits">
+    <!--<ion-card-header class="myCardHeader"></ion-card-header>-->
+    <!--<ion-card-content>-->
+    <!--<p>{{i.tags}}</p>-->
+    <!--<img src="{{i.previewURL}}">-->
+    <!--</ion-card-content>-->
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="{{i.userImageURL}}">
+      </ion-avatar>
+      <h2>{{i.tags}}</h2>
+    </ion-item>
+    <img src="{{i.previewURL}}">
+
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-left clear small>
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div>{{i.likes}} Likes</div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-left clear small>
+          <ion-icon name="text"></ion-icon>
+          <div>{{i.comments}} Comments</div>
+        </button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          {{i.views}} views
+        </ion-note>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
 </ion-content>
