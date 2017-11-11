@@ -1,4 +1,4 @@
-import {Directive, Input, ElementRef, Renderer2} from '@angular/core';
+import {Directive, Input, Renderer2} from '@angular/core';
 
 /**
  * Generated class for the HideHeaderDirective directive.
@@ -16,7 +16,7 @@ export class HideHeaderDirective {
   @Input("header") header: HTMLElement;
   headerHeight;
 
-  constructor(private element: ElementRef, private renderer: Renderer2) {
+  constructor( private renderer: Renderer2) {
     console.log('Hello HideHeaderDirective Directive');
   }
 

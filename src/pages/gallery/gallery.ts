@@ -16,12 +16,12 @@ import {GalleryService} from "../../services/gallery.service";
   templateUrl: 'gallery.html',
 })
 export class GalleryPage {
-  private apiKey = "7005797-664590099d4013b34d7fc6d1d"
   private keyWord: string = ""
   private images: any = {hits: []};
   private page: number = 1;
   private size: number = 10;
   private totalePages:number;
+  public dataHandler:any = {hits: []}
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient, private galleryService: GalleryService) {
   }
 
@@ -33,9 +33,10 @@ export class GalleryPage {
     this.galleryService.search(this.keyWord, this.size, this.page)
       .subscribe(data =>
         {
-          this.totalePages = data.totalHits / this.size ;
+          this.dataHandler = data ;
+          this.totalePages = this.dataHandler.totalHits / this.size ;
           if(this.totalePages % this.size !=0 ) ++this.totalePages;
-          data.hits.forEach(h=> {
+          this.dataHandler.hits.forEach(h=> {
              this.images.hits.push(h);
           })
         },
