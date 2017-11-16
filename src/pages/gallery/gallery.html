@@ -31,7 +31,7 @@
       </ion-avatar>
       <h2>{{i.tags}}</h2>
     </ion-item>
-    <img src="{{i.previewURL}}">
+    <img src="{{i.previewURL}}" (click)="onDetailImage(i)">
 
     <ion-row>
       <ion-col>

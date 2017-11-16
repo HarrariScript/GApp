@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {GalleryService} from "../../services/gallery.service";
+import {DetailImagePage} from "../detail-image/detail-image";
 
 /**
  * Generated class for the GalleryPage page.
@@ -20,7 +21,8 @@ export class GalleryPage {
   private page: number = 1;
   private size: number = 10;
   private totalePages:number;
-  public dataHandler:any = {hits: []}
+  public dataHandler:any = {hits: []};
+  private lastKeyWord:string = "";
   constructor(public navCtrl: NavController, public navParams: NavParams, private galleryService: GalleryService) {
   }
 
@@ -29,6 +31,8 @@ export class GalleryPage {
   }
 
   search() {
+     if(this.lastKeyWord!=this.keyWord) { this.images.hits = []; this.lastKeyWord = this.keyWord; }
+
     this.galleryService.search(this.keyWord, this.size, this.page)
       .subscribe(data =>
         {
@@ -51,5 +55,8 @@ export class GalleryPage {
       event.complete();
     }
 
+  }
+  onDetailImage(i){
+    this.navCtrl.push(DetailImagePage , {image:i});
   }
 }

@@ -12,6 +12,7 @@ import {GalleryPage} from "../pages/gallery/gallery";
 import {HttpClientModule} from "@angular/common/http";
 import {GalleryService} from "../services/gallery.service";
 import {HideHeaderDirective} from "../directives/hide-header/hide-header";
+import {DetailImagePage} from "../pages/detail-image/detail-image";
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {HideHeaderDirective} from "../directives/hide-header/hide-header";
     PlacesPage,
     MeteoPage,
     GalleryPage,
-    HideHeaderDirective
+    HideHeaderDirective,
+    DetailImagePage
   ],
   imports: [
     BrowserModule,HttpClientModule,
@@ -33,7 +35,8 @@ import {HideHeaderDirective} from "../directives/hide-header/hide-header";
     HomePage,
     PlacesPage,
     MeteoPage,
-    GalleryPage
+    GalleryPage,
+    DetailImagePage
   ],
   providers: [
     StatusBar,
