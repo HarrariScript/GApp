@@ -30,9 +30,8 @@ export class GalleryPage {
     console.log('ionViewDidLoad GalleryPage');
   }
 
-  search() {
+  search(event) {
      if(this.lastKeyWord!=this.keyWord) { this.images.hits = []; this.lastKeyWord = this.keyWord; }
-
     this.galleryService.search(this.keyWord, this.size, this.page)
       .subscribe(data =>
         {
@@ -42,6 +41,9 @@ export class GalleryPage {
           this.dataHandler.hits.forEach(h=> {
              this.images.hits.push(h);
           })
+          if(event){
+            event.complete();
+          }
         },
         err =>
           console.log(err)
@@ -51,11 +53,12 @@ export class GalleryPage {
   doInfinite(event) {
     if(this.page < this.totalePages){
       ++this.page;
-      this.search();
-      event.complete();
+      this.search(event);
+      console.log(this.totalePages +"/"+this.page);
     }
 
   }
+
   onDetailImage(i){
     this.navCtrl.push(DetailImagePage , {image:i});
   }
