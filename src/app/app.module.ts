@@ -13,6 +13,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {GalleryService} from "../services/gallery.service";
 import {HideHeaderDirective} from "../directives/hide-header/hide-header";
 import {DetailImagePage} from "../pages/detail-image/detail-image";
+import {MeteoService} from "../services/meteo.service";
+import {InteractionService} from "../services/interaction.service";
 
 
 @NgModule({
@@ -42,6 +44,8 @@ import {DetailImagePage} from "../pages/detail-image/detail-image";
     StatusBar,
     SplashScreen,
     GalleryService,
+    MeteoService,
+    InteractionService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
