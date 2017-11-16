@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {HttpClient} from "@angular/common/http";
 import {GalleryService} from "../../services/gallery.service";
 
 /**
@@ -22,7 +21,7 @@ export class GalleryPage {
   private size: number = 10;
   private totalePages:number;
   public dataHandler:any = {hits: []}
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient, private galleryService: GalleryService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private galleryService: GalleryService) {
   }
 
   ionViewDidLoad() {
