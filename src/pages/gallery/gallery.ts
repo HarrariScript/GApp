@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, LoadingController, ToastController} from 'ionic-angular';
 import {GalleryService} from "../../services/gallery.service";
 import {DetailImagePage} from "../detail-image/detail-image";
 
@@ -23,19 +23,38 @@ export class GalleryPage {
   private totalePages:number;
   public dataHandler:any = {hits: []};
   private lastKeyWord:string = "";
-  constructor(public navCtrl: NavController, public navParams: NavParams, private galleryService: GalleryService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              private galleryService: GalleryService , public loadingCtrl: LoadingController ,
+              private toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GalleryPage');
   }
 
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'top'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+    toast.present();
+  }
   search(event) {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    })
+    loading.present();
      if(this.lastKeyWord!=this.keyWord) { this.images.hits = []; this.lastKeyWord = this.keyWord; }
     this.galleryService.search(this.keyWord, this.size, this.page)
       .subscribe(data =>
         {
           this.dataHandler = data ;
+          if(this.dataHandler.totalHits==0) this.presentToast('we dont find any image ');
           this.totalePages = this.dataHandler.totalHits / this.size ;
           if(this.totalePages % this.size !=0 ) ++this.totalePages;
           this.dataHandler.hits.forEach(h=> {
@@ -44,9 +63,14 @@ export class GalleryPage {
           if(event){
             event.complete();
           }
+           loading.dismiss();
         },
         err =>
+        {
           console.log(err)
+          loading.dismiss();
+          this.presentToast('your internet connection appears to be offline');
+        }
       )
   }
 
@@ -54,7 +78,6 @@ export class GalleryPage {
     if(this.page < this.totalePages){
       ++this.page;
       this.search(event);
-      console.log(this.totalePages +"/"+this.page);
     }
 
   }
