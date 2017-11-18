@@ -28,9 +28,10 @@ or
 `
 yarn ` if your are using yarn as a package Manager 
 
-##Development server
+## Development server
 
 `
+
 ionic serve 
 
 `
